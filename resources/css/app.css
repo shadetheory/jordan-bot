@@ -1,0 +1,297 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-yell: 'Anton', Impact, 'Arial Black', sans-serif;
+    --font-bang: 'Bangers', Impact, sans-serif;
+    --font-comic: 'Comic Neue', 'Comic Sans MS', cursive;
+    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --color-studio: #0a0e14;
+    --color-velvet: #8b0000;
+    --color-gold: #ffd400;
+    --color-hot: #ff2d2d;
+    --color-neon: #fff200;
+    --color-cyan: #00d4ff;
+    --color-synapse: #a855f7;
+    --color-imessage: #007aff;
+    --color-imessage-gray: #e5e5ea;
+    --color-imessage-bg: #f2f2f7;
+    --animate-marquee: marquee 22s linear infinite;
+    --animate-flash: flash 0.7s steps(2, jump-end) infinite;
+    --animate-wobble: wobble 0.85s ease-in-out infinite;
+    --animate-spin-slow: spin 16s linear infinite;
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes flash {
+    50% {
+        opacity: 0.18;
+    }
+}
+
+@keyframes wobble {
+    0%,
+    100% {
+        transform: rotate(-2.5deg) scale(1);
+    }
+    50% {
+        transform: rotate(2.5deg) scale(1.05);
+    }
+}
+
+@keyframes caret {
+    50% {
+        opacity: 0;
+    }
+}
+
+@utility neural-grid {
+    background-color: var(--color-studio);
+    background-image:
+        linear-gradient(rgb(0 212 255 / 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgb(0 212 255 / 0.06) 1px, transparent 1px),
+        radial-gradient(circle at 18% 28%, rgb(0 212 255 / 0.2) 0, transparent 42%),
+        radial-gradient(circle at 82% 72%, rgb(168 85 247 / 0.18) 0, transparent 48%);
+    background-size:
+        48px 48px,
+        48px 48px,
+        100% 100%,
+        100% 100%;
+}
+
+@utility scanlines {
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 2px,
+        rgb(255 212 0 / 0.05) 3px
+    );
+}
+
+@utility caret {
+    display: inline-block;
+    width: 0.55ch;
+    height: 1em;
+    margin-left: 0.1ch;
+    background: currentColor;
+    animation: caret 1.05s steps(1) infinite;
+    vertical-align: -0.1em;
+}
+
+@utility bubble-md {
+    min-width: 0;
+    overflow-wrap: anywhere;
+
+    & p {
+        margin: 0;
+    }
+
+    & p + p,
+    & p + ul,
+    & p + ol,
+    & ul + p,
+    & ol + p,
+    & pre + p,
+    & p + pre,
+    & p + blockquote,
+    & blockquote + p {
+        margin-top: 0.45em;
+    }
+
+    & ul,
+    & ol {
+        margin: 0.2em 0;
+        padding-left: 1.15em;
+    }
+
+    & li + li {
+        margin-top: 0.15em;
+    }
+
+    & code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.86em;
+        border-radius: 0.3rem;
+        padding: 0.05em 0.35em;
+    }
+
+    & pre {
+        margin: 0.35em 0;
+        max-width: 100%;
+        overflow-x: auto;
+        border-radius: 0.7rem;
+        padding: 0.55rem 0.7rem;
+        font-size: 0.82em;
+        line-height: 1.4;
+        white-space: pre-wrap;
+    }
+
+    & pre code {
+        padding: 0;
+        background: transparent;
+        font-size: inherit;
+    }
+
+    & a {
+        text-decoration: underline;
+        text-underline-offset: 0.15em;
+    }
+
+    & blockquote {
+        margin: 0.35em 0;
+        padding-left: 0.7em;
+        border-left: 3px solid currentColor;
+        opacity: 0.92;
+    }
+
+    & hr {
+        margin: 0.5em 0;
+        border: 0;
+        border-top: 1px solid currentColor;
+        opacity: 0.35;
+    }
+
+    & strong {
+        font-weight: 700;
+    }
+
+    & em {
+        font-style: italic;
+    }
+}
+
+@utility bubble-you {
+    max-width: 85%;
+    align-self: flex-end;
+    border-radius: 18px 18px 4px 18px;
+    background: var(--color-imessage);
+    padding: 0.5rem 0.85rem;
+    font-size: 1.05rem;
+    line-height: 1.35;
+    color: white;
+
+    & a {
+        color: inherit;
+    }
+
+    & code,
+    & pre {
+        background: rgb(255 255 255 / 0.22);
+    }
+}
+
+@utility bubble-jordan {
+    max-width: 90%;
+    align-self: flex-start;
+    border-radius: 18px 18px 18px 4px;
+    background: var(--color-imessage-gray);
+    padding: 0.5rem 0.85rem;
+    font-size: 1.05rem;
+    line-height: 1.35;
+    color: #111;
+
+    & a {
+        color: #007aff;
+    }
+
+    & code,
+    & pre {
+        background: rgb(0 0 0 / 0.08);
+    }
+}
+
+@keyframes typing-dot {
+    0%,
+    80%,
+    100% {
+        opacity: 0.25;
+        transform: translateY(0);
+    }
+    40% {
+        opacity: 1;
+        transform: translateY(-2px);
+    }
+}
+
+@utility typing-dots {
+    display: inline-flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+@utility typing-dots-dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 9999px;
+    background: #8e8e93;
+    animation: typing-dot 1.2s ease-in-out infinite;
+}
+
+@utility imessage-paper {
+    background-color: #e8e6e1;
+    background-image:
+        radial-gradient(circle at 20% 20%, rgb(255 255 255 / 0.35) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 80% 40%, rgb(0 0 0 / 0.04) 0 1px, transparent 1.5px);
+    background-size: 12px 12px;
+}
+
+@keyframes ken {
+    from {
+        transform: scale(1) translate(0, 0);
+    }
+    to {
+        transform: scale(1.12) translate(-2%, 1.5%);
+    }
+}
+
+@utility ken-burns {
+    animation: ken 12s ease-in-out infinite alternate;
+}
+
+@keyframes rec-blink {
+    50% {
+        opacity: 0.2;
+    }
+}
+
+@utility rec-dot {
+    animation: rec-blink 1s steps(1) infinite;
+}
+
+.play-reply {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 0.4rem;
+    border: 0;
+    border-radius: 999px;
+    background: #111;
+    color: #f4f4f4;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 650;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    padding: 0.3rem 0.55rem;
+    cursor: pointer;
+}
+
+.play-reply:disabled {
+    cursor: default;
+    opacity: 0.55;
+}
+
+.bubble-you .play-reply {
+    display: none;
+}

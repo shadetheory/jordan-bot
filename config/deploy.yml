@@ -1,0 +1,75 @@
+# Ask Jordan — Kamal on Odin. Public hostname via cloudflared :8313.
+# Does not share kamal-proxy :8302 (PFC is catch-all Host * there).
+
+service: jordan-bot
+
+image: jordan-bot
+
+proxy:
+  app_port: 8080
+  ssl: false
+  host: ask.jordanpartridge.us
+  healthcheck:
+    path: /up
+
+servers:
+  web:
+    hosts:
+      - 127.0.0.1
+    options:
+      network: house-data
+      add-host:
+        - "host.docker.internal:host-gateway"
+      publish:
+        - "127.0.0.1:8313:8080"
+    env:
+      clear:
+        CONTAINER_ROLE: web
+
+ssh:
+  user: jordan
+
+registry:
+  server: 127.0.0.1:5000
+  username: jordan
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+env:
+  clear:
+    APP_NAME: Jordan
+    APP_ENV: production
+    APP_DEBUG: "false"
+    APP_URL: https://ask.jordanpartridge.us
+    ASSET_URL: https://ask.jordanpartridge.us
+    SESSION_SECURE_COOKIE: "true"
+    LOG_CHANNEL: stack
+    LOG_LEVEL: error
+    DB_CONNECTION: sqlite
+    DB_DATABASE: /app/database/database.sqlite
+    SESSION_DRIVER: database
+    CACHE_STORE: database
+    QUEUE_CONNECTION: database
+    AI_DEFAULT: ollama
+    OLLAMA_URL: http://host.docker.internal:11434
+    JORDAN_MODEL: mistral:7b
+    JORDAN_TIMEOUT: "180"
+    JORDAN_ASK_PER_DAY: "5"
+    JORDAN_SESSIONS_PATH: /app/storage/app/private/sessions
+    JORDAN_VOICE_PATH: /app/storage/app/private/voice/transcripts.txt
+  secret:
+    - APP_KEY
+    - KAMAL_REGISTRY_PASSWORD
+
+volumes:
+  - "/home/jordan/.config/jordan-bot/data/database.sqlite:/app/database/database.sqlite"
+
+builder:
+  arch: amd64
+  driver: docker
+
+aliases:
+  logs: app logs -f
+  up: app exec "curl -sf -o /dev/null -w %{http_code} http://127.0.0.1:8080/up"
+
+deploy_timeout: 180
