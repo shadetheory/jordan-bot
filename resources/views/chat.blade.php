@@ -174,7 +174,7 @@
                     </p>
                     <p class="text-sm text-[#f4f4f4]/75">
                         That is his actual face, from
-                        <a href="https://github.com/jordanpartridge" class="underline">github.com/jordanpartridge</a>.
+                        <a href="https://github.com/shadetheory" class="underline">github.com/shadetheory</a>.
                         He is a real person. He bikes. He is not an AI.
                     </p>
                 </div>
